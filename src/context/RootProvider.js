@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MeuProvider from './MeuProvider';
+import MainScreenProvider from './MainScreenProvider';
 
 export default function RootProvider({ children }) {
   return (
-    // Lembre de modificar o nome do mesmo de acordo com seu Provider criado!
-    <MeuProvider>
+
+    <MainScreenProvider>
       { children }
-    </MeuProvider>
+    </MainScreenProvider>
   );
 }
 

@@ -1,11 +1,13 @@
 import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
+import Recipes from './Pages/Recipes';
 
 function App() {
   return (
-    <div>
-      <h1>Hello World!</h1>
-    </div>
+    <BrowserRouter>
+      <Route path="/recipes" component={ Recipes } />
+    </BrowserRouter>
   );
 }
 
