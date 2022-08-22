@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import RootProvider from './context/RootProvider';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <RootProvider>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </RootProvider>,
   document.getElementById('root'),
 );
