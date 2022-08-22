@@ -1,10 +1,5 @@
-export default async function apiConsult(param) {
-  const url = {
-    meals: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
-    drinks: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
-  };
-
-  const data = await fetch(url[param]).then((response) => response.json());
+export default async function apiConsult(url) {
+  const data = await fetch(url).then((response) => response.json());
 
   return data;
 }

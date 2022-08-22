@@ -5,15 +5,17 @@ import MainScreenCard from '../Components/MainScreenCard';
 
 import { MainScreenContex } from '../context/MainScreenProvider';
 
+const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+
 function Drinks() {
-  const { drinksApi, setDrinksApi } = useContext(MainScreenContex);
+  const { revenues, setRevenues } = useContext(MainScreenContex);
 
   const MAX_ELEMENTS = 12;
 
   useEffect(() => {
     async function fetchData() {
-      const { drinks } = await apiConsult('drinks');
-      setDrinksApi(drinks);
+      const { drinks } = await apiConsult(URL);
+      setRevenues(drinks);
     }
     fetchData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -21,7 +23,7 @@ function Drinks() {
 
   return (
     <div>
-      {drinksApi
+      {revenues
         .filter((element, index) => index < MAX_ELEMENTS)
         .map((elementMap, indexMap) => (
           <MainScreenCard

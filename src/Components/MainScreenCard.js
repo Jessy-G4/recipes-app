@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function MainScreenCard({ mealsOrDrinks, element, index }) {
   return (
@@ -19,5 +20,11 @@ function MainScreenCard({ mealsOrDrinks, element, index }) {
     </div>
   );
 }
+
+MainScreenCard.propTypes = {
+  mealsOrDrinks: PropTypes.string,
+  element: PropTypes.objectOf(),
+  index: PropTypes.number,
+}.isRequired;
 
 export default MainScreenCard;
