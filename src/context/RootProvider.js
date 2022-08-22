@@ -1,13 +1,14 @@
+// funcionalidades
 import React from 'react';
 import PropTypes from 'prop-types';
-import MeuProvider from './MeuProvider';
+// importações
+import LoginProvider from './LoginProvider';
 
 export default function RootProvider({ children }) {
   return (
-    // Lembre de modificar o nome do mesmo de acordo com seu Provider criado!
-    <MeuProvider>
+    <LoginProvider>
       { children }
-    </MeuProvider>
+    </LoginProvider>
   );
 }
 
