@@ -4,11 +4,14 @@ import PropTypes from 'prop-types';
 export const MainScreenContex = createContext();
 
 export default function MainScreenProvider({ children }) {
-  const [mailsAOrDrinksApi, setMailsAOrDrinksApi] = useState([]);
+  const [foodsApi, setFoodsApi] = useState([]);
+  const [drinksApi, setDrinksApi] = useState([]);
 
   const value = {
-    mailsAOrDrinksApi,
-    setMailsAOrDrinksApi,
+    foodsApi,
+    drinksApi,
+    setFoodsApi,
+    setDrinksApi,
   };
 
   return (
