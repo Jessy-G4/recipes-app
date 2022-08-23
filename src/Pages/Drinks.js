@@ -3,17 +3,20 @@ import Recipes from '../Components/Recipes';
 import { MainScreenContex } from '../context/MainScreenProvider';
 import apiConsult from '../service/apiConsult';
 
-const URL_RECIPES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-const URL_CATEGORY = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+const URLS = {
+  URL_RECIPES: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+  URL_CATEGORY: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
+  URL_BUTTON_CATEGORY: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=',
+};
 
 function Drinks() {
   const { setRecipes, setCategory } = useContext(MainScreenContex);
 
   useEffect(() => {
     async function fetchData() {
-      const { drinks: recipes } = await apiConsult(URL_RECIPES);
+      const { drinks: recipes } = await apiConsult(URLS.URL_RECIPES);
       setRecipes(recipes);
-      const { drinks: category } = await apiConsult(URL_CATEGORY);
+      const { drinks: category } = await apiConsult(URLS.URL_CATEGORY);
       setCategory(category);
     }
     fetchData();
@@ -22,7 +25,11 @@ function Drinks() {
 
   return (
     <div>
-      <Recipes mealsOrDrinks="Drink" />
+      <Recipes
+        mealsOrDrinks="Drink"
+        urlButtonCategory={ URLS.URL_BUTTON_CATEGORY }
+        urlRecipes={ URLS.URL_RECIPES }
+      />
     </div>
   );
 }
