@@ -1,8 +1,6 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../App';
-import { createMemoryHistory } from 'history';
 import renderWithRouter from './helpers/RenderWithRouter';
 import SearchBar from '../components/SearchBar';
 import RootProvider from '../context/RootProvider';
