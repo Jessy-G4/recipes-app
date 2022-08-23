@@ -1,13 +1,10 @@
 import React from 'react';
 import './App.css';
-import SearchBar from './components/SearchBar';
-import RootProvider from './context/RootProvider';
+import Header from './components/Header';
 
 function App() {
   return (
-    <RootProvider>
-      <SearchBar />
-    </RootProvider>
+    <Header />
   );
 }
 
