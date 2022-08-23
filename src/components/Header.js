@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
@@ -9,24 +9,27 @@ function Header({ title }) {
   const [showSearchBar, setShowSearchBar] = useState('');
 
   function toggleSearchBar() {
-    if (!showSearchBar) setShowSearchBar(true);
-    if (showSearchBar) setShowSearchBar(false);
+    return showSearchBar ? setShowSearchBar(false) : setShowSearchBar(true);
   }
 
-  const iconSearch = (
-    <button
-      className="header-icon-search"
-      type="button"
-      onClick={ toggleSearchBar }
-      onKeyDown={ toggleSearchBar }
-    >
-      <img
-        data-testid="search-top-btn"
-        src={ searchIcon }
-        alt="searchIcon"
-      />
-    </button>
-  );
+  function iconSearch() {
+    return (
+      <button
+        className="header-icon-search"
+        type="button"
+        onClick={ toggleSearchBar }
+      >
+        <img
+          data-testid="search-top-btn"
+          src={ searchIcon }
+          alt="searchIcon"
+        />
+      </button>
+    );
+  }
+
+  const history = useHistory();
+  const { location: { pathname } } = history;
 
   return (
     <header>
@@ -34,7 +37,7 @@ function Header({ title }) {
       <Link to="/profile">
         <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
       </Link>
-      {(title === 'Foods' || title === 'Drinks') && iconSearch}
+      {(pathname === '/foods' || pathname === '/drinks') && iconSearch()}
       {showSearchBar && <SearchBar />}
     </header>
   );
