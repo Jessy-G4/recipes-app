@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { SearchBarContext } from '../context/SearchBarProvider';
-import SearchBarCard from './SearchBarCard';
+import { SearchBarContext } from '../context/Provider';
+import SearchBarCard from './Card';
 
 export default function SearchBar() {
   const { filters, setFilters, getRecipes, recipes } = useContext(SearchBarContext);
@@ -16,7 +16,7 @@ export default function SearchBar() {
   useEffect(() => {
     if (recipes.length === 1) {
       const { location: { pathname } } = history;
-      if (pathname === '/drinks') {
+      if (pathname.includes('/drinks')) {
         history.push(`/drinks/${recipes[0].idDrink}`);
       } else {
         history.push(`/foods/${recipes[0].idMeal}`);
@@ -27,6 +27,7 @@ export default function SearchBar() {
   return (
     <div>
       <button type="button" data-testid="search-top-btn">teste</button>
+      <button type="button" onClick={ () => history.push('/drinks') }>Drinks</button>
       <input
         type="text"
         data-testid="search-input"

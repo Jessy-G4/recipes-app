@@ -17,6 +17,6 @@ export default function SearchBarCard({ data, index }) {
 }
 
 SearchBarCard.propTypes = {
-  data: propTypes.arrayOf(propTypes.object).isRequired,
+  data: propTypes.objectOf(propTypes.any).isRequired,
   index: propTypes.number.isRequired,
 };

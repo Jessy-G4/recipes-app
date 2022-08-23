@@ -1,13 +1,14 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from './App';
+import App from '../App';
 import { createMemoryHistory } from 'history';
-
-const history = createMemoryHistory();
+import renderWithRouter from './helpers/RenderWithRouter';
+import SearchBar from '../components/SearchBar';
+import RootProvider from '../context/RootProvider';
 
 test('Farewell, front-end', async () => {
-  render(<App history={ history } />);
+  renderWithRouter(<RootProvider><SearchBar /></RootProvider>);
   const input = screen.getByTestId('search-input');
   userEvent.type(input, 'Arrabiata');
 
@@ -17,8 +18,26 @@ test('Farewell, front-end', async () => {
   const searchBtn = screen.getByTestId('exec-search-btn');
   userEvent.click(searchBtn);
 
-  const ingredientRadio = screen.getByTestId('ingredient-search-radio');
-  expect(ingredientRadio).toBeInTheDocument();
-  const firstLetterRadio = screen.getByTestId('first-letter-search-radio');
-  expect(firstLetterRadio).toBeInTheDocument();
+  await waitFor(() => {
+    expect(screen.getByTestId('0-card-name'));
+  })
+});
+
+test('Farewell, front-end', async () => {
+  renderWithRouter(<RootProvider><SearchBar /></RootProvider>);
+
+  userEvent.click(screen.getByText('Drinks'));
+
+  const input = screen.getByTestId('search-input');
+  userEvent.type(input, 'Angel Face');
+
+  const nameRadio = screen.getByTestId('name-search-radio');
+  userEvent.click(nameRadio);
+
+  const searchBtn = screen.getByTestId('exec-search-btn');
+  userEvent.click(searchBtn);
+
+  await waitFor(() => {
+    expect(screen.getByTestId('0-card-name').textContent).toBe('Angel Face');
+  })
 });

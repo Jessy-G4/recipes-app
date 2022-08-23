@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SearchBarProvider from './SearchBarProvider';
+import SearchBarProvider from './Provider';
 
 export default function RootProvider({ children }) {
   return (

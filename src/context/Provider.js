@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 import propTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import getApi from '../services/api';
 
 export const SearchBarContext = createContext();
@@ -11,9 +12,12 @@ export default function SearchBarProvider({ children }) {
   });
   const [recipes, setRecipes] = useState([]);
 
+  const history = useHistory();
+
   const getRecipes = async () => {
     let apiToFetch = '';
-    const page = window.location.pathname === '/drinks' ? 'thecocktaildb' : 'themealdb';
+    const page = history.location.pathname
+      .includes('/drinks') ? 'thecocktaildb' : 'themealdb';
     const { sortBy, inputValue } = filters;
     if (sortBy === 'first-letter' && inputValue.length > 1) {
       return global.alert('Your search must have only 1 (one) character');
