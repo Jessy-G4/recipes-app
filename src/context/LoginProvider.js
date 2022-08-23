@@ -1,5 +1,7 @@
 import React, { createContext, Component } from 'react';
 import PropTypes from 'prop-types';
+import createHistory from 'history/createBrowserHistory';
+import { setLocalStorage, saveTokenToLocalStorage } from '../helpers/creatLocalStorage';
 
 export const loginContext = createContext();
 
@@ -13,7 +15,7 @@ class LoginProvider extends Component {
     };
   }
 
-  isDIsabled = () => {
+  isDisabled = () => {
     const { emailInput, passwordInput } = this.state;
     const NUMBER_SIX = 6;
     if (emailInput.includes('@')
@@ -22,9 +24,19 @@ class LoginProvider extends Component {
     } return this.setState({ disabled: true });
   }
 
-  handleChange = (evento) => {
+  handleChangeLogin = (evento) => {
     const { name, value } = evento.target;
-    this.setState({ [name]: value }, () => this.isDIsabled());
+    this.setState({ [name]: value }, () => this.isDisabled());
+  }
+
+  handleClickLogin = () => {
+    const { emailInput } = this.state;
+    const history = createHistory();
+    const email = { email: emailInput };
+    setLocalStorage('user', email);
+    saveTokenToLocalStorage('mealsToken', '1');
+    saveTokenToLocalStorage('cocktailsToken', '1');
+    history.push('/foods');
   }
 
   render() {
@@ -34,7 +46,8 @@ class LoginProvider extends Component {
       <Provider
         value={ {
           ...this.state,
-          handleChange: this.handleChange,
+          handleChangeLogin: this.handleChangeLogin,
+          handleClickLogin: this.handleClickLogin,
         } }
       >
         {children}
@@ -45,6 +58,7 @@ class LoginProvider extends Component {
 
 LoginProvider.propTypes = {
   children: PropTypes.objectOf(),
+  history: PropTypes.func,
 }.isRequired;
 
 export default LoginProvider;

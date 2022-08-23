@@ -4,7 +4,13 @@ import React, { useContext } from 'react';
 import { loginContext } from '../context/LoginProvider';
 
 export default function Login() {
-  const { emailInput, passwordInput, handleChange, disabled } = useContext(loginContext);
+  const {
+    emailInput,
+    passwordInput,
+    handleChangeLogin,
+    disabled,
+    handleClickLogin,
+  } = useContext(loginContext);
   return (
     <>
       <label htmlFor="email">
@@ -16,7 +22,7 @@ export default function Login() {
           value={ emailInput }
           placeholder="Digite Seu Email"
           data-testid="email-input"
-          onChange={ handleChange }
+          onChange={ handleChangeLogin }
         />
       </label>
       <label htmlFor="password">
@@ -28,13 +34,14 @@ export default function Login() {
           value={ passwordInput }
           placeholder="Digite Sua Senha"
           data-testid="password-input"
-          onChange={ handleChange }
+          onChange={ handleChangeLogin }
         />
       </label>
       <button
-        type="button"
+        type="submit"
         data-testid="login-submit-btn"
         disabled={ disabled }
+        onClick={ handleClickLogin }
       >
         Enter
 

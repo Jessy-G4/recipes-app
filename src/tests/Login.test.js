@@ -8,6 +8,7 @@ import renderWithRouterLogin from './renderWithRouterLogin';
 // Importações
 import Login from '../Pages/Login';
 import RootProvider from '../context/RootProvider';
+import App from '../App';
 
 test('Se ao entrar na página aparece um input de email', () => {
     renderWithRouterLogin(
@@ -41,7 +42,20 @@ válido e uma senha de mais de 6 caracteres forem preenchidos`, () => {
     const button = screen.getByTestId('login-submit-btn');
     expect(passwordInput).toBeInTheDocument();
     expect(button).toBeDisabled();
-    userEvent.type(emailInput, 'teste@gmail.com');
+    userEvent.type(emailInput, 'test@gmail.com');
     userEvent.type(passwordInput, '1234567');
     expect(button).toBeEnabled();
   });
+
+test(`Se ao clicar no botão de login, o usuário é redirecionado para /foods`, () => {
+   const { history } = renderWithRouterLogin(
+        <RootProvider>
+        <App />
+        </RootProvider>
+        );
+  const button = screen.getByTestId('login-submit-btn');
+  userEvent.click(button);
+  history.push('/foods');
+  expect(history.location.pathname).toBe('/foods');
+  });
+  
