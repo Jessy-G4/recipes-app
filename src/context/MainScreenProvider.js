@@ -5,10 +5,13 @@ export const MainScreenContex = createContext();
 
 export default function MainScreenProvider({ children }) {
   const [recipes, setRecipes] = useState([]);
+  const [category, setCategory] = useState([]);
 
   const value = {
     recipes,
     setRecipes,
+    category,
+    setCategory,
   };
 
   return (
