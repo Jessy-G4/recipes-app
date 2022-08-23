@@ -1,13 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { SearchBarContext } from '../context/SearchBarProvider';
+import SearchBarCard from './SearchBarCard';
 
 export default function SearchBar() {
-  const { filters, setFilters, getRecipes } = useContext(SearchBarContext);
+  const { filters, setFilters, getRecipes, recipes } = useContext(SearchBarContext);
+
+  const history = useHistory();
 
   const handleCheckboxClick = (e) => {
     setFilters({ ...filters, sortBy: e.target.value });
   };
+
+  useEffect(() => {
+    if (recipes.length === 1) {
+      const { location: { pathname } } = history;
+      if (pathname === '/drinks') {
+        history.push(`/drinks/${recipes[0].idDrink}`);
+      } else {
+        history.push(`/foods/${recipes[0].idMeal}`);
+      }
+    }
+  }, [recipes]);
 
   return (
     <div>
@@ -61,6 +76,11 @@ export default function SearchBar() {
         Buscar
 
       </button>
+      {recipes.length > 0 && recipes.map((recipe, index) => (<SearchBarCard
+        key={ index }
+        data={ recipe }
+        index={ index }
+      />))}
     </div>
   );
 }

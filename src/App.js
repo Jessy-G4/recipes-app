@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar';
+import RootProvider from './context/RootProvider';
 
 function App() {
   return (
-    <div>
-      <h1>Hello World!</h1>
+    <RootProvider>
       <SearchBar />
-    </div>
+    </RootProvider>
   );
 }
 

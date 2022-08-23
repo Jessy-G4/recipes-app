@@ -13,24 +13,39 @@ export default function SearchBarProvider({ children }) {
 
   const getRecipes = async () => {
     let apiToFetch = '';
+    const page = window.location.pathname === '/drinks' ? 'thecocktaildb' : 'themealdb';
     const { sortBy, inputValue } = filters;
     if (sortBy === 'first-letter' && inputValue.length > 1) {
       return global.alert('Your search must have only 1 (one) character');
     }
     switch (sortBy) {
     case 'ingredient':
-      apiToFetch = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`;
+      apiToFetch = `https://www.${page}.com/api/json/v1/1/filter.php?i=${inputValue}`;
       break;
     case 'first-letter':
-      apiToFetch = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`;
+      apiToFetch = `https://www.${page}.com/api/json/v1/1/search.php?f=${inputValue}`;
       break;
     default:
-      apiToFetch = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`;
+      apiToFetch = `https://www.${page}.com/api/json/v1/1/search.php?s=${inputValue}`;
     }
 
-    const { meals } = await getApi(apiToFetch);
+    const recipeReturn = await getApi(apiToFetch);
 
-    setRecipes(meals);
+    const recipesArray = recipeReturn?.meals ?? recipeReturn.drinks;
+
+    if (!recipesArray) {
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+
+    const MAGICTWELVE = 12;
+
+    if (recipesArray.length > MAGICTWELVE) {
+      const newArray = [...recipesArray];
+      const selec = newArray.slice(0, MAGICTWELVE);
+      return setRecipes(selec);
+    }
+
+    return setRecipes(recipesArray);
   };
 
   const value = {
