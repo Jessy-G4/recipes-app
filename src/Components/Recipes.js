@@ -25,6 +25,7 @@ function Recipes({ mealsOrDrinks, urlButtonCategory, urlRecipes }) {
   return (
     <div>
       <div>
+        <input type="checkbox" />
         <button
           type="button"
           data-testid="All-category-filter"
