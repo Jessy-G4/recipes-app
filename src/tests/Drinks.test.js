@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom';
 import App from "../App";
 
@@ -65,12 +65,79 @@ const tittlesMock = [
   'ACID',
   'B-52'
 ];
+const dataMock = {
+  "drinks": [
+    {
+      "strDrink": "151 Florida Bushwacker",
+      "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/rvwrvv1468877323.jpg",
+      "idDrink": "14588"
+    },
+    {
+      "strDrink": "Avalanche",
+      "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/uppqty1472720165.jpg",
+      "idDrink": "16419"
+    },
+    {
+      "strDrink": "Baby Eskimo",
+      "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/wywrtw1472720227.jpg",
+      "idDrink": "15511"
+    },
+    {
+      "strDrink": "Banana Milk Shake",
+      "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/rtwwsx1472720307.jpg",
+      "idDrink": "12654"
+    },
+    {
+      "strDrink": "Banana Strawberry Shake",
+      "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/vqquwx1472720634.jpg",
+      "idDrink": "12656"
+    },
+    {
+      "strDrink": "Banana Strawberry Shake Daiquiri",
+      "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/uvypss1472720581.jpg",
+      "idDrink": "12658"
+    },
+    {
+      "strDrink": "Black Forest Shake",
+      "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/xxtxsu1472720505.jpg",
+      "idDrink": "15951"
+    },
+    {
+      "strDrink": "Blind Russian",
+      "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/wxuqvr1472720408.jpg",
+      "idDrink": "14356"
+    },
+    {
+      "strDrink": "Boozy Snickers Milkshake",
+      "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/861tzm1504784164.jpg",
+      "idDrink": "17221"
+    },
+    {
+      "strDrink": "Butter Baby",
+      "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/1xhjk91504783763.jpg",
+      "idDrink": "17220"
+    },
+    {
+      "strDrink": "Chocolate Monkey",
+      "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/tyvpxt1468875212.jpg",
+      "idDrink": "15615"
+    },
+    {
+      "strDrink": "Jamaica Kiss",
+      "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/urpvvv1441249549.jpg",
+      "idDrink": "14095"
+    },
+  ]
+}
+
+const funcMockTest = jest.fn();
 
 describe('Testa a page Drinks', () => {
 
   beforeEach(() => {
     const value = {
       recipes: [...drinks.drinks],
+      setRecipes: () => funcMockTest(),
       category: [...categoryMock.drinks],
     };
     
@@ -97,6 +164,23 @@ describe('Testa a page Drinks', () => {
       const button = screen.getByRole('button', { name: `${element}` });
       expect(button).toBeInTheDocument();
     })
+  })
+
+  test('Verifica se os Hoocks de set são executados', async () => {    
+    jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
+      json: () => Promise.resolve(dataMock)
+    }))
+    
+    const button = screen.getByRole('button', { name: /shake/i })
+    expect(button).toBeInTheDocument()
+    fireEvent.click(button);
+
+    const buttonAll = screen.getByRole('button', { name: /all/i })
+    expect(button).toBeInTheDocument()  
+    fireEvent.click(buttonAll);
+    
+    await waitFor(() => {}, 1000)
+    expect(funcMockTest).toHaveBeenCalledTimes(2)
   })
 })
 
