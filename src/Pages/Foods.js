@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import Recipes from '../Components/Recipes';
 import { MainScreenContex } from '../context/MainScreenProvider';
 import apiConsult from '../service/apiConsult';
-// https://www.themealdb.com/api/json/v1/1/search.php?s=
+
 const URLS = {
   URL_RECIPES: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
   URL_CATEGORY: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
