@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event'
 import renderWithRouterLogin from './renderWithRouterLogin';
 
 // Importações
-import Login from '../Pages/Login';
+import Login from '../pages/Login';
 import RootProvider from '../context/RootProvider';
 import App from '../App';
 
