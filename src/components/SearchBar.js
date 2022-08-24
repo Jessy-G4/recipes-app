@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { SearchBarContext } from '../context/Provider';
-import SearchBarCard from './Card';
+import { SearchBarContext } from '../context/SearchBarProvider';
+import SearchBarCard from './SearchBarCard';
 
 export default function SearchBar() {
   const { filters, setFilters, getRecipes, recipes } = useContext(SearchBarContext);
@@ -26,8 +26,6 @@ export default function SearchBar() {
 
   return (
     <div>
-      <button type="button" data-testid="search-top-btn">teste</button>
-      <button type="button" onClick={ () => history.push('/drinks') }>Drinks</button>
       <input
         type="text"
         data-testid="search-input"

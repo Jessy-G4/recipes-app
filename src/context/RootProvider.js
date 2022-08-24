@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import HeaderProvider from './HeaderProvider';
-import SearchBarProvider from './Provider';
+import SearchBarProvider from './SearchBarProvider';
 
 export default function RootProvider({ children }) {
   return (
