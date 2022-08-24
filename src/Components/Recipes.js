@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MainScreenContex } from '../context/MainScreenProvider';
 import MainScreenCard from './MainScreenCard';
 
 import apiConsult from '../service/apiConsult';
 
+const ARRAY_LENGTH = 5;
+
 function Recipes({ mealsOrDrinks, urlButtonCategory, urlRecipes }) {
   const { recipes, category, setRecipes } = useContext(MainScreenContex);
 
   const [toggleAll, setToggleAll] = useState(false);
-  const [toggle, setToggle] = useState(new Array(5).fill(false));
-
-  // console.log(toggle);
+  const [toggle, setToggle] = useState(new Array(ARRAY_LENGTH).fill(false));
 
   const MAX_ELEMENTS_RECIPES = 12;
   const MAX_ELEMENTS_CATEGORY = 5;
@@ -22,23 +22,7 @@ function Recipes({ mealsOrDrinks, urlButtonCategory, urlRecipes }) {
     setRecipes(dataRecipes);
   };
 
-  // const handleButton = (strCategory) => {
-  //   const url = strCategory ? `${urlButtonCategory}${strCategory}` : urlRecipes;
-  //   setData(url);
-  // };
-  // const handleCheck = (checked, indexMap) => {
-  //   if (checked) {
-  //     setToggleAll(false);
-  //     setToggle(toggle.map((element, index) => index === indexMap && !element));
-  //   }
-  // };
-
   const handleToggle = (checked, strCategory, indexMap) => {
-    // if (checked && strCategory) {
-    //   setData(`${urlButtonCategory}${strCategory}`);
-    // } else if (checked) {
-    //   setData(urlRecipes);
-    // handleCheck(checked, indexMap);
     if (checked && strCategory) {
       setData(`${urlButtonCategory}${strCategory}`);
       setToggleAll(false);
@@ -84,25 +68,6 @@ function Recipes({ mealsOrDrinks, urlButtonCategory, urlRecipes }) {
               { strCategory }
             </label>
           ))}
-        {/* <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => handleButton() }
-        >
-          All
-        </button> */}
-        {/* {category
-          .filter((element, index) => index < MAX_ELEMENTS_CATEGORY)
-          .map(({ strCategory }, indexMap) => (
-            <button
-              data-testid={ `${strCategory}-category-filter` }
-              key={ indexMap }
-              type="button"
-              onClick={ () => handleButton(strCategory) }
-            >
-              {strCategory}
-            </button>
-          ))} */}
       </div>
       <div>
         {recipes
