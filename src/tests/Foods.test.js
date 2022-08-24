@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom';
 import App from "../App";
-import Foods from '../Pages/Foods';
+import Foods from '../pages/Foods';
 
 import meals from '../../cypress/mocks/meals';
 
