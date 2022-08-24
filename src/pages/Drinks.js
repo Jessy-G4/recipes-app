@@ -3,6 +3,8 @@ import Footer from '../components/Footer';
 import '../App.css';
 import Header from '../components/Header';
 
+// Drinks
+
 function Drinks() {
   return (
     <div>
