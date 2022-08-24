@@ -9,7 +9,7 @@ import LoginProvider from './LoginProvider';
 
 export default function RootProvider({ children }) {
   return (
-   <LoginProvider>
+    <LoginProvider>
       <HeaderProvider>
         <SearchBarProvider>
           <MainScreenProvider>
