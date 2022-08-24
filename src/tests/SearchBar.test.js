@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from './helpers/RenderWithRouter';
+import renderWithRouter from '../helpers/renderWithRouter';
 import SearchBar from '../components/SearchBar';
 import RootProvider from '../context/RootProvider';
 
@@ -22,9 +22,9 @@ test('Farewell, front-end', async () => {
 });
 
 test('Farewell, front-end', async () => {
-  renderWithRouter(<RootProvider><SearchBar /></RootProvider>);
+  const { history } = renderWithRouter(<RootProvider><SearchBar /></RootProvider>);
 
-  userEvent.click(screen.getByText('Drinks'));
+  history.push('/drinks');
 
   const input = screen.getByTestId('search-input');
   userEvent.type(input, 'Angel Face');

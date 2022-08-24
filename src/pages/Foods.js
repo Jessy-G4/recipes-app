@@ -1,14 +1,15 @@
 import React from 'react';
 import Footer from '../components/Footer';
 import '../App.css';
+import Header from '../components/Header';
 
-function Drinks() {
+function Foods() {
   return (
     <div>
-      <h1>Drinks</h1>
+      <Header title="Foods" />
       <Footer />
     </div>
 
   );
 }
-export default Drinks;
+export default Foods;

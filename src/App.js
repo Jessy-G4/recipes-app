@@ -1,28 +1,28 @@
 import React from 'react';
-import './App.css';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import Drinks from './Pages/Drinks';
-import Foods from './Pages/Foods';
-import Login from './Pages/Login';
-import Profile from './Pages/Profile';
-import DoneRecepies from './Pages/DoneRecepies';
-import FavoriteRecepes from './Pages/FavoriteRecipes';
-import Header from './components/Header';
+import { Route, Switch } from 'react-router-dom';
+
+import Login from './pages/Login';
+import Foods from './pages/Foods';
+import Drinks from './pages/Drinks';
+import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoritesRecipes';
+import DrinksDetails from './pages/DrinksDetails';
+import FoodsDetails from './pages/FoodsDetails';
 
 function App() {
   return (
     <div>
-      <Header />
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={ Login } />
-          <Route exact path="/foods" component={ Foods } />
-          <Route exact path="/drinks" component={ Drinks } />
-          <Route path="/profile" component={ Profile } />
-          <Route path="/done-recipes" component={ DoneRecepies } />
-          <Route path="/favorite-recipes" component={ FavoriteRecepes } />
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={ Login } />
+        <Route path="/foods/:id" component={ FoodsDetails } />
+        <Route path="/foods" component={ Foods } />
+        <Route path="/drinks/:id" component={ DrinksDetails } />
+        <Route path="/drinks" component={ Drinks } />
+        <Route path="/profile" component={ Profile } />
+        <Route path="/done-recipes" component={ DoneRecipes } />
+        <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+      </Switch>
     </div>
   );
 }

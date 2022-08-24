@@ -1,8 +1,8 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Foods from '../Pages/Foods';
-import renderWithRouter from './helpers/renderWithRouter';
+import Foods from '../pages/Foods';
+import renderWithRouter from '../helpers/renderWithRouter';
 
 
 describe('Teste da página footer',() => {
