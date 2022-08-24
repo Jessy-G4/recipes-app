@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import HeaderProvider from './HeaderProvider';
+import SearchBarProvider from './Provider';
 
 export default function RootProvider({ children }) {
   return (
     <HeaderProvider>
-      { children }
+      <SearchBarProvider>
+        { children }
+      </SearchBarProvider>
     </HeaderProvider>
   );
 }
