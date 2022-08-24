@@ -4,11 +4,13 @@ import { MainScreenContex } from '../context/MainScreenProvider';
 import MainScreenCard from './MainScreenCard';
 
 import apiConsult from '../service/apiConsult';
+import { SearchBarContext } from '../context/SearchBarProvider';
 
 const ARRAY_LENGTH = 5;
 
 function Recipes({ mealsOrDrinks, urlButtonCategory, urlRecipes }) {
   const { recipes, category, setRecipes } = useContext(MainScreenContex);
+  const { recipes: recipesFilter } = useContext(SearchBarContext);
 
   const [toggleAll, setToggleAll] = useState(false);
   const [toggle, setToggle] = useState(new Array(ARRAY_LENGTH).fill(false));
@@ -70,7 +72,7 @@ function Recipes({ mealsOrDrinks, urlButtonCategory, urlRecipes }) {
           ))}
       </div>
       <div>
-        {recipes
+        { !recipesFilter.length && recipes
           .filter((element, index) => index < MAX_ELEMENTS_RECIPES)
           .map((elementMap, indexMap) => (
             <MainScreenCard

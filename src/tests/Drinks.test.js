@@ -6,6 +6,7 @@ import Drinks from '../pages/Drinks';
 import drinks from '../../cypress/mocks/drinks';
 
 import { MainScreenContex } from "../context/MainScreenProvider"
+import RootProvider from '../context/RootProvider';
 
 const categoryMock = {
   "drinks": [
@@ -144,11 +145,13 @@ describe('Testa a page Drinks', () => {
     };
     
     render(
+      <RootProvider>
       <MemoryRouter initialEntries={['/drinks']}>
         <MainScreenContex.Provider value={ value }>
           <App />
         </MainScreenContex.Provider>
       </MemoryRouter>
+      </RootProvider>
     )
   })
 
@@ -202,11 +205,13 @@ test('Verifica se os Hoocks de set são executados dentro de useEfect ao renderi
         };
   
   render(
+    <RootProvider>
     <MemoryRouter>
       <MainScreenContex.Provider value={ value }>
         <Drinks />
       </MainScreenContex.Provider>
     </MemoryRouter>
+    </RootProvider>
   )
   
   await waitFor(() => {
