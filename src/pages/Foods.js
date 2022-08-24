@@ -2,6 +2,8 @@ import React, { useEffect, useContext } from 'react';
 import Recipes from '../components/Recipes';
 import { MainScreenContex } from '../context/MainScreenProvider';
 import apiConsult from '../service/apiConsult';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const URLS = {
   URL_RECIPES: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
@@ -25,11 +27,13 @@ function Foods() {
 
   return (
     <div>
+      <Header title="Foods" />
       <Recipes
         mealsOrDrinks="Meal"
         urlButtonCategory={ URLS.URL_BUTTON_CATEGORY }
         urlRecipes={ URLS.URL_RECIPES }
       />
+      <Footer />
     </div>
   );
 }

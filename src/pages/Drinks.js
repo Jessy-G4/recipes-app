@@ -2,6 +2,8 @@ import React, { useEffect, useContext } from 'react';
 import Recipes from '../components/Recipes';
 import { MainScreenContex } from '../context/MainScreenProvider';
 import apiConsult from '../service/apiConsult';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const URLS = {
   URL_RECIPES: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
@@ -25,11 +27,13 @@ function Drinks() {
 
   return (
     <div>
+      <Header title="Drinks" />
       <Recipes
         mealsOrDrinks="Drink"
         urlButtonCategory={ URLS.URL_BUTTON_CATEGORY }
         urlRecipes={ URLS.URL_RECIPES }
       />
+      <Footer />
     </div>
   );
 }
