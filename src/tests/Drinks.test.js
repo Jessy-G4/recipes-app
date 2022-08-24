@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom';
 import App from "../App";
+import Drinks from '../Pages/Drinks';
 
 import drinks from '../../cypress/mocks/drinks';
 
@@ -130,15 +131,16 @@ const dataMock = {
   ]
 }
 
-const funcMockTest = jest.fn();
-
 describe('Testa a page Drinks', () => {
+  const funcMockTestRecipes = jest.fn();
+  const funcMockTestCategory = jest.fn();
 
   beforeEach(() => {
     const value = {
       recipes: [...drinks.drinks],
-      setRecipes: () => funcMockTest(),
+      setRecipes: () => funcMockTestRecipes(),
       category: [...categoryMock.drinks],
+      setCategory: () => funcMockTestCategory()
     };
     
     render(
@@ -180,7 +182,35 @@ describe('Testa a page Drinks', () => {
     fireEvent.click(buttonAll);
     
     await waitFor(() => {}, 1000)
-    expect(funcMockTest).toHaveBeenCalledTimes(2)
+    expect(funcMockTestRecipes).toHaveBeenCalledTimes(2)
   })
 })
 
+test('Verifica se os Hoocks de set são executados dentro de useEfect ao renderizar o component Foods', async () => {
+  const funcMockTestRecipes = jest.fn();
+  const funcMockTestCategory = jest.fn();
+
+  jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
+    json: () => Promise.resolve(dataMock)
+  }))
+
+  const value = {
+          recipes: [...drinks.drinks],
+          setRecipes: () => funcMockTestRecipes(),
+          category: [...categoryMock.drinks],
+          setCategory: () => funcMockTestCategory()
+        };
+  
+  render(
+    <MemoryRouter>
+      <MainScreenContex.Provider value={ value }>
+        <Drinks />
+      </MainScreenContex.Provider>
+    </MemoryRouter>
+  )
+  
+  await waitFor(() => {
+    expect(funcMockTestRecipes).toHaveBeenCalledTimes(1)
+    expect(funcMockTestCategory).toHaveBeenCalledTimes(1)
+  }, 1000)
+})

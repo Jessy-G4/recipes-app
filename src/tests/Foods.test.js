@@ -1,10 +1,12 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom';
 import App from "../App";
+import Foods from '../Pages/Foods';
 
 import meals from '../../cypress/mocks/meals';
 
-import { MainScreenContex } from "../context/MainScreenProvider"
+import MainScreenProvider, { MainScreenContex } from "../context/MainScreenProvider"
+import { act } from 'react-dom/test-utils';
 
 const categoryMock = {
   "meals": [
@@ -138,21 +140,23 @@ const dataMock = {
   ]
 }
 
-const funcMockTest = jest.fn();
 
 describe('Testa a page Foods', () => {
-
+  const funcMockTestRecipes = jest.fn();
+  const funcMockTestCategory = jest.fn();
+  
   beforeEach(() => {
     const value = {
       recipes: [...meals.meals],
-      setRecipes: () => funcMockTest(),
+      setRecipes: () => funcMockTestRecipes(),
       category: [...categoryMock.meals],
+      setCategory: () => funcMockTestCategory()
     };
     
     render(
-      <MemoryRouter initialEntries={['/foods']}>
+      <MemoryRouter>
         <MainScreenContex.Provider value={ value }>
-          <App />
+          <Foods />
         </MainScreenContex.Provider>
       </MemoryRouter>
     )
@@ -188,6 +192,35 @@ describe('Testa a page Foods', () => {
     fireEvent.click(buttonAll);
 
     await waitFor(() => {}, 1000)
-    expect(funcMockTest).toHaveBeenCalledTimes(2)
+    expect(funcMockTestRecipes).toHaveBeenCalledTimes(2)
   })
+})
+
+test('Verifica se os Hoocks de set são executados dentro de useEfect ao renderizar o component Foods', async () => {
+  const funcMockTestRecipes = jest.fn();
+  const funcMockTestCategory = jest.fn();
+
+  jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
+    json: () => Promise.resolve(dataMock)
+  }))
+
+  const value = {
+          recipes: [...meals.meals],
+          setRecipes: () => funcMockTestRecipes(),
+          category: [...categoryMock.meals],
+          setCategory: () => funcMockTestCategory()
+        };
+  
+  render(
+    <MemoryRouter>
+      <MainScreenContex.Provider value={ value }>
+        <Foods />
+      </MainScreenContex.Provider>
+    </MemoryRouter>
+  )
+  
+  await waitFor(() => {
+    expect(funcMockTestRecipes).toHaveBeenCalledTimes(1)
+    expect(funcMockTestCategory).toHaveBeenCalledTimes(1)
+  }, 1000)
 })
