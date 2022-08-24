@@ -45,7 +45,7 @@ const categoryMock = {
   ]
 }
 
-const buttonsMock = [
+const checkboxsMock = [
   'Ordinary Drink',
   'Cocktail',
   'Shake',
@@ -162,9 +162,9 @@ describe('Testa a page Drinks', () => {
 
   test('Verifica se os botões das receitas são renderizados', () => {   
   
-    buttonsMock.map((element) => {
-      const button = screen.getByRole('button', { name: `${element}` });
-      expect(button).toBeInTheDocument();
+    checkboxsMock.map((element) => {
+      const checkbox = screen.getByRole('checkbox', { name: `${element}` });
+      expect(checkbox).toBeInTheDocument();
     })
   })
 
@@ -173,13 +173,13 @@ describe('Testa a page Drinks', () => {
       json: () => Promise.resolve(dataMock)
     }))
     
-    const button = screen.getByRole('button', { name: /shake/i })
-    expect(button).toBeInTheDocument()
-    fireEvent.click(button);
+    const checkbox = screen.getByRole('checkbox', { name: /shake/i })
+    expect(checkbox).toBeInTheDocument()
+    fireEvent.click(checkbox);
 
-    const buttonAll = screen.getByRole('button', { name: /all/i })
-    expect(button).toBeInTheDocument()  
-    fireEvent.click(buttonAll);
+    const checkboxAll = screen.getByRole('checkbox', { name: /all/i })
+    expect(checkbox).toBeInTheDocument()  
+    fireEvent.click(checkboxAll);
     
     await waitFor(() => {}, 1000)
     expect(funcMockTestRecipes).toHaveBeenCalledTimes(2)

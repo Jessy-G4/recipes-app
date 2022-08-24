@@ -5,8 +5,7 @@ import Foods from '../Pages/Foods';
 
 import meals from '../../cypress/mocks/meals';
 
-import MainScreenProvider, { MainScreenContex } from "../context/MainScreenProvider"
-import { act } from 'react-dom/test-utils';
+import { MainScreenContex } from "../context/MainScreenProvider";
 
 const categoryMock = {
   "meals": [
@@ -54,7 +53,7 @@ const categoryMock = {
     }
   ]
 }
-const buttonsMock = [
+const checkboxsMock = [
   'Beef',
   'Breakfast',
   'Chicken',
@@ -165,16 +164,17 @@ describe('Testa a page Foods', () => {
   test('Verifica se os titulos das receitas são renderizados', () => {
   
     tittlesMock.map((element) => {
-      const button = screen.getByRole('heading', { name: `${element}` });
-      expect(button).toBeInTheDocument();
+      const heading = screen.getByRole('heading', { name: `${element}` });
+      expect(heading).toBeInTheDocument();
     })
+    // screen.logTestingPlaygroundURL()
   })
 
   test('Verifica se os botões das receitas são renderizados', () => {   
   
-    buttonsMock.map((element) => {
-      const button = screen.getByRole('button', { name: `${element}` });
-      expect(button).toBeInTheDocument();
+    checkboxsMock.map((element) => {
+      const checkbox = screen.getByRole('checkbox', { name: `${element}` });
+      expect(checkbox).toBeInTheDocument();
     })
   })
 
@@ -183,13 +183,13 @@ describe('Testa a page Foods', () => {
       json: () => Promise.resolve(dataMock)
     }))
     
-    const button = screen.getByRole('button', { name: /beef/i })
-    expect(button).toBeInTheDocument()
-    fireEvent.click(button);
+    const checkbox = screen.getByRole('checkbox', { name: /beef/i })
+    expect(checkbox).toBeInTheDocument()
+    fireEvent.click(checkbox);
     
-    const buttonAll = screen.getByRole('button', { name: /all/i })
-    expect(button).toBeInTheDocument()
-    fireEvent.click(buttonAll);
+    const checkboxAll = screen.getByRole('checkbox', { name: /all/i })
+    expect(checkbox).toBeInTheDocument()
+    fireEvent.click(checkboxAll);
 
     await waitFor(() => {}, 1000)
     expect(funcMockTestRecipes).toHaveBeenCalledTimes(2)
