@@ -5,11 +5,11 @@ import renderWithRouter from '../helpers/renderWithRouter';
 import App from '../App';
 
 describe('Teste da página Header', () => {
-  it('', () => {
+  it('Verifica a cobertura do componente Header', () => {
     const { history } = renderWithRouter(<App />);
     history.push('/drinks');
-    const nome = screen.getByTestId('search-top-btn');
-    userEvent.click(nome);
-    userEvent.click(nome);
+    const iconSearch = screen.getByTestId('search-top-btn');
+    userEvent.click(iconSearch);
+    userEvent.click(iconSearch);
   });
 });
